@@ -1,20 +1,22 @@
 package com.keyin;
 
+import java.util.Objects;
+
 public class Employee{
     private int id;
     private String firstName;
     private String lastName;
-    private double salary;
+    private double monthlySalary;
 
     static int count = 0;
 
     //Parameterized constructor
-    Employee(int id, String fn, String ln, double sal)
+    public Employee(int id, String firstName, String lastName, double monthlySalary)
     {
         this.id = id;
-        this.firstName = fn;
-        this.lastName = ln;
-        this.salary = sal;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.monthlySalary = monthlySalary;
         count++;
     }
     //Copy constructor
@@ -23,7 +25,7 @@ public class Employee{
         this.id = e.id;
         this.firstName = e.firstName;
         this.lastName = e.lastName;
-        this.salary = e.salary;
+        this.monthlySalary = e.monthlySalary;
         count++;
     }
     //Getters and setters
@@ -39,31 +41,44 @@ public class Employee{
     {
         return this.lastName;
     }
-    public double getSalary()
+    public double getMonthlySalary()
     {
-        return this.salary;
+        return this.monthlySalary;
     }
     public String getName()
     {
         return(firstName + " " + lastName);
     }
 
-    public void setSalary(double sal)
+    public void setMonthlySalary(double monthlySalary)
     {
-        this.salary = sal;
+        this.monthlySalary = monthlySalary;
     }
 
     public double getAnnualSalary()
     {
-        return (12* salary);
+        return (12* monthlySalary);
     }
     public double raiseSalary (double percentage)
     {
-        this.salary = this.salary + (percentage/100*this.salary);
-        return (this.salary);
+        this.monthlySalary = this.monthlySalary + (percentage/100*this.monthlySalary);
+        return (this.monthlySalary);
     }
     public String toString()
     {
-        return (getName() + " has a salary " + this.salary + " and we have " + count + " employees.");
+        return (getName() + " has a salary " + this.monthlySalary + " and we have " + count + " employees.");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return getFirstName().equals(employee.getFirstName()) && getLastName().equals(employee.getLastName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFirstName(), getLastName());
     }
 }
